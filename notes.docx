@@ -1,0 +1,24 @@
+user: benwille
+pass: Pa$$w0rD
+
+<section class="card mb-1" id="tickets">
+  <?php for ($i=0; $i < 4; $i++) { ?>
+    <div class="card-body row inline-table">
+      <div class="col-3">
+        <img class="sm-logo mr-1" src="<?php echo url_for('images/logos/MLS/' . h($schedule[$i]->home) . '.svg'); ?>" alt="Home" /><br />
+        <img class="sm-logo mr-1" src="<?php echo url_for('images/logos/MLS/' . h($schedule[$i]->away) . '.svg'); ?>" alt="Away" style="margin-left:-3px" />
+      </div>
+      <div class="col-6 my-auto">
+        <?php echo h($schedule[$i]->date_format()); ?><br />
+        <?php echo h($schedule[$i]->time_format()); ?>
+      </div>
+      <div class="col-3 my-auto text-center">
+        <a href="<?php echo h($schedule[$i]->link); ?>" target="_blank"><img class="sm-logo" src="<?php echo url_for('images/ticket.svg'); ?>" alt="Tickets"></a><br />
+      </div>
+    </div>
+    <?php if ($i < 3) { ?>
+      <div class="dropdown-divider"></div><!--End single game ticket block -->
+  <?php } } ?>
+</section>
+
+http://simplehtmldom.sourceforge.net/manual.htm#section_find
