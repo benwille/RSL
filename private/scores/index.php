@@ -1,4 +1,4 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php //require_once('../initialize.php'); ?>
 <?php require_login(); ?>
 <?php
   $admin = Admin::find_by_username($session->username);
