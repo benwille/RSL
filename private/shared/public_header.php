@@ -32,7 +32,7 @@ if(is_post_request()) {
   </head>
 
   <body>
-    <?php include '../private/scores/index.php'; ?>
+    <?php //include '../private/scores/index.php'; ?>
 
     <header>
       <div class="container">
