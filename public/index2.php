@@ -1,4 +1,4 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php require_once('../private/initialize.php'); ?>
 <?php require_login(); ?>
 <?php
 
@@ -8,7 +8,7 @@
 
 <?php $page_title = 'Posts'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
-<script src="myscript.js"></script>
+<!-- <script src="myscript.js"></script> -->
 
 <div id="content">
   <div class="tasks listing">

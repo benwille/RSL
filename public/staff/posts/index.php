@@ -19,7 +19,33 @@ $sql .= "LIMIT {$per_page} ";
 $sql .= "OFFSET {$pagination->offset()}";
 $posts = Feed::find_by_sql($sql);
 
-// include 'process.php';
+
+
+if(is_post_request()) {
+
+  // Create record using post parameters
+  $args = $_POST['post'];
+  // $id = $_POST['post']['id'];
+  $id = $_GET['id'];
+  $post = Feed::find_by_id($id);
+  $post->merge_attributes($args);
+
+  $result = $post->save();
+  if($result === true) {
+    // $new_id = $task->id;
+    // echo 'The post was updated successfully.';
+    $session->message('The post was updated successfully.');
+    redirect_to(url_for('/staff/posts/index.php'));
+
+
+  } else {
+    // show errors
+    // echo 'There was an error';
+    // redirect_to(url_for('/staff/posts/index.php'));
+  }
+} else {
+  $post = new Feed;
+}
 
 ?>
 
@@ -47,7 +73,7 @@ $posts = Feed::find_by_sql($sql);
       </tr>
       <?php foreach($posts as $post) { ?>
         <tr>
-          <form action="<?php echo 'process.php?id=' . h(u($post->id)) ; ?>" method="post" id="postform">
+          <form action="<?php echo 'index.php?id=' . h(u($post->id)) ; ?>" method="post" id="postform">
           <td><?php echo h($post->title); ?></td>
           <td><?php echo h($post->pubDate()); ?></td>
           <td class="align-middle">
