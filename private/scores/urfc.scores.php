@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="urfc-scores" role="tabpanel">
+<div class="tab-pane fade" id="v-pills-urfc" role="tabpanel" aria-labelledby="v-pills-profile-tab">
   <div class="card-group d-flex flex-row-reverse">
   <?php
     foreach ($urfcScores as $score) { ?>

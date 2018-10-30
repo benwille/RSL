@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" id="rsl-scores" role="tabpanel">
+<div class="tab-pane fade show active" id="v-pills-rsl" role="tabpanel" aria-labelledby="v-pills-home-tab">
   <div class="card-group d-flex flex-row-reverse">
   <?php
     foreach ($rslScores as $score) { ?>

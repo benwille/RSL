@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="monarchs-scores" role="tabpanel">
+<div class="tab-pane fade" id="v-pills-monarchs" role="tabpanel" aria-labelledby="v-pills-messages-tab">
   <div class="card-group d-flex flex-row-reverse">
   <?php
     foreach ($monarchsScores as $score) { ?>
