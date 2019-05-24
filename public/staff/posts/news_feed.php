@@ -1,5 +1,7 @@
 <?php require_once('../../../private/initialize.php'); ?>
 <?php
+	$admin = Admin::find_by_username($session->username);
+
 	$feed = simplexml_load_file("https://www.rsl.com/rss.xml");
 	$channel = $feed->channel;
 	$items = $channel->item;
@@ -52,7 +54,8 @@ jQuery(document).ready(function() {
 
 
 <?php $page_title = 'News Feed'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/staff_header.php');
+include(SHARED_PATH . '/posts_menu.php'); ?>
 <?php echo display_errors($item->errors); ?>
 <div class="container">
 <form action="<?php echo 'news_feed.php'; ?>" method="post" id="form">
@@ -76,7 +79,7 @@ jQuery(document).ready(function() {
 				} else {
 					$image = (explode("\"", $description[1]));
 				}
-				
+
 				$url = explode("/post/", $items[$i]->link);
 				$path = $url[1];
 				switch (true) {

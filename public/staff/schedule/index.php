@@ -58,7 +58,7 @@ if(is_post_request()) {
  <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
  <div id="content">
-   <div class="tasks listing">
+   <div class="tasks listing" id="royals">
      <div class="d-flex">
        <h1>Royals Matches</h1>
        <div class="ml-auto">
@@ -106,7 +106,7 @@ if(is_post_request()) {
    	</table></div>
 
    </div>
-   <div class="tasks listing">
+   <div class="tasks listing" id="monarchs">
      <div class="d-flex">
        <h1>Monarchs Matches</h1>
        <div class="ml-auto">

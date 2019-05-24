@@ -14,7 +14,7 @@
     <h1>Players</h1>
 
     <div class="actions">
-      <a class="action" href="<?php echo url_for('/staff/players/new.php'); ?>">Add Player</a>
+      <!-- <a class="action" href="<?php echo url_for('/staff/players/new.php'); ?>">Add Player</a> -->
     </div>
     <div class="row">
       <?php foreach($players as $player) {

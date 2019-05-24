@@ -27,7 +27,8 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Delete Post'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/staff_header.php');
+include(SHARED_PATH . '/posts_menu.php'); ?>
 
 <div id="content">
 
