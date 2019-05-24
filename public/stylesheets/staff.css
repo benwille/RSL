@@ -196,3 +196,41 @@ img {
 .img-lg {
   width: 50%;
 }
+
+img.card-img {
+  /* width: 300px; */
+  height: 150px;
+  object-fit: cover;
+}
+
+.list-group-item {
+  padding: .25rem .5rem;
+}
+
+@media screen and (min-width: 992px) {
+  .player-card h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.player-card .show-more {
+  display: initial;
+}
+
+.player-card .player-stats,
+.player-card .competition {
+  display:none;
+}
+
+@media screen and (min-width: 768px) {
+  .player-card .show-more {
+    display: none;
+  }
+
+  .player-card .player-stats {
+    display: flex;
+  }
+  .player-card .competition {
+    display:initial;
+  }
+}

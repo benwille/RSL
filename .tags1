@@ -1,0 +1,17 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+page_title	/Users/bwille/Sites/RSL/public/index.php	/^<?php $page_title = 'Home'; ?>$/;"	variable	line:4
+i	/Users/bwille/Sites/RSL/public/index.php	/^            foreach ($promoted as $i => $post) {$/;"	variable	line:36
+i	/Users/bwille/Sites/RSL/public/index.php	/^              if ($post->hero == 1 || $i == 0) {$/;"	variable	line:37
+i	/Users/bwille/Sites/RSL/public/index.php	/^            foreach ($rsl_posts as $i => $rsl_post) {$/;"	variable	line:78
+i	/Users/bwille/Sites/RSL/public/index.php	/^              if ($rsl_post->team_hero == 1 || $i == 0) {$/;"	variable	line:82
+i	/Users/bwille/Sites/RSL/public/index.php	/^            foreach ($urfc_posts as $i => $urfc_post) {$/;"	variable	line:122
+i	/Users/bwille/Sites/RSL/public/index.php	/^              if ($urfc_post->team_hero == 1 || $i == 0) {$/;"	variable	line:126
+i	/Users/bwille/Sites/RSL/public/index.php	/^            foreach ($monarchs_posts as $i => $monarchs_post) {$/;"	variable	line:166
+i	/Users/bwille/Sites/RSL/public/index.php	/^              if ($monarchs_post->team_hero == 1 || $i == 0) {$/;"	variable	line:170
+i	/Users/bwille/Sites/RSL/public/index.php	/^            foreach ($academy_posts as $i => $academy_post) {$/;"	variable	line:209
+i	/Users/bwille/Sites/RSL/public/index.php	/^              if ($academy_post->team_hero == 1 || $i == 0) {$/;"	variable	line:213

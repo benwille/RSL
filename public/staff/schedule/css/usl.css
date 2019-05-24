@@ -1,0 +1,24 @@
+img.club_logo {
+	width:60px;
+	height: auto;
+}
+
+@media screen and (min-width: 450px) {
+	img.club_logo {
+		width:100px;
+		height: auto;
+	}
+}
+
+a.match-link-2 {
+	top: 60% !important;
+}
+.page-schedule .schedule_list .match_item .match_home {
+	border-color: rgb(220, 170, 0) transparent transparent;
+}
+.page-schedule .schedule_list .match_item .match_away {
+	border-color: rgb(2, 43, 82) transparent transparent;
+}
+.page-schedule .schedule_list .match_item .match_parallelogram {
+    background: rgb(220, 170, 0);
+}

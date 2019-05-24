@@ -10,7 +10,7 @@ $html = file_get_html('https://www.espn.com/soccer/club/_/id/4771');
 $i = 0;
 // Find top ten videos
 if ($html) {
-foreach ($html->find('header.game-strip') as $score) {
+foreach ($html->find('.col-a header.game-strip') as $score) {
         if ($i > 5) {
                 break;
         }
@@ -30,11 +30,20 @@ foreach ($html->find('header.game-strip') as $score) {
         }
         elseif ($status != 'FT  ') {
                 $status = NULL;
-                $reverseDate = $score->find('div.game-date',0)->plaintext;
-                $correctDate = explode("/",$reverseDate);
-                $dateformat = strtotime($correctDate[1] . "/" . $correctDate[0]);
-                $date = date('M d', $dateformat);
-                $time = date('g:i A',(strtotime($score->find('div.time',0)->plaintext) + 60 * 60));
+                $reverseDate = $score->find('div.game-date',0)->plaintext ?? NULL;
+                if (!$reverseDate) {
+                        $date = 'TBD';
+                } else {
+                        $correctDate = explode("/",$reverseDate);
+                        $dateformat = strtotime($correctDate[1] . "/" . $correctDate[0]);
+                        $date = date('M d', $dateformat);
+                }
+                // var_dump(strtotime($score->find('div.time',0)->plaintext));
+                if (strtotime($score->find('div.time',0)->plaintext) == false) {
+                        $time = 'TBD';
+                } else {
+                        $time = date('g:i A',(strtotime($score->find('div.time',0)->plaintext) + 60 * 60));
+                }
                 // $time = $time + 60 * 60;
                 // $time = date_format($t, 'H:i');
 
@@ -111,7 +120,7 @@ $html = file_get_html('http://www.espn.com/soccer/club/_/id/19141');
 
 $i = 0;
 
-foreach ($html->find('header.game-strip') as $score) {
+foreach ($html->find('.col-a header.game-strip') as $score) {
         if ($i > 5) {
                 break;
         }
@@ -165,7 +174,7 @@ $html = file_get_html('http://www.espn.com/soccer/club/_/id/18448');
 
 $i = 0;
 
-foreach ($html->find('header.game-strip') as $score) {
+foreach ($html->find('.col-a header.game-strip') as $score) {
         if ($i > 5) {
                 break;
         }

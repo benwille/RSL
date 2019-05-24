@@ -63,6 +63,7 @@ jQuery(document).ready(function() {
 				<td>Link</td>
 				<td>PubDate</td>
 				<td>Image</td>
+				<td>Team</td>
 			</tr>
 			<?php $article = []; ?>
 			<?php
@@ -75,6 +76,32 @@ jQuery(document).ready(function() {
 				} else {
 					$image = (explode("\"", $description[1]));
 				}
+				
+				$url = explode("/post/", $items[$i]->link);
+				$path = $url[1];
+				switch (true) {
+					case preg_match('(rsl)', $path) :
+						$team = 1;
+						break;
+					case preg_match('(urfc)', $path) :
+						$team = 2;
+						break;
+					case preg_match('(royals)', $path) :
+						$team = 2;
+						break;
+					case preg_match('(monarchs)', $path) :
+						$team = 3;
+						break;
+					case preg_match('(academy)', $path) :
+						$team = 4;
+						break;
+					case preg_match('(real-salt-lake)', $path) :
+						$team = 1;
+						break;
+					default:
+						$team = NULL;
+				}
+
 				$date = date_create(h($items[$i]->pubDate), timezone_open("GMT"));
 				date_timezone_set($date, timezone_open('America/Denver')); ?>
 			<tr>
@@ -82,6 +109,14 @@ jQuery(document).ready(function() {
 					<td><input type="text" name="item[<?php echo h($i) ?>][link]"  value="<?php echo h($items[$i]->link); ?>" readonly></td>
 					<td><input type="text" name="item[<?php echo h($i) ?>][pubDate]"  value="<?php echo date_format($date, "Y-m-d H:i:s" ); ?>" placeholder="hello" readonly></td>
 					<td><input type="text" name="item[<?php echo h($i) ?>][imageLink]"  value="<?php echo("https://saltlake-mp7static.mlsdigital.net/" . h($image[0])); ?>" readonly></td>
+					<td class="align-middle">
+            <select name="item[<?php echo h($i) ?>][team]">
+              <option value=""></option>
+            <?php foreach(Feed::TEAMS as $team_id => $team_name) { ?>
+              <option value="<?php echo $team_id; ?>" <?php if($team == $team_id) { echo 'selected'; } ?>><?php echo $team_name; ?></option>
+            <?php } ?>
+            </select>
+          </td>
 			</tr>
 
 			<?php $i++;

@@ -189,6 +189,7 @@
         </div>
     </section> <!--Monarchs Section-->
 
+    <?php if ($academy_posts) { ?>
     <section class="card mb-5" id="academy">
       <div class="card-header">
         <div class="d-flex">
@@ -231,6 +232,7 @@
           <a class="card-link text-center" href="https://rsl.com" target="_blank">See All</a>
         </div>
     </section> <!--Academy Section-->
+  <?php } ?>
 
     <section class="card mb-5" id="latest">
       <div class="card-header">

@@ -19,6 +19,32 @@ while ($i < 10) {
 	} else {
 		$image = (explode("\"", $description[1]));
 	}
+
+	$url = explode("/post/", $items[$i]->link);
+	$path = $url[1];
+	switch (true) {
+		case preg_match('(rsl)', $path) :
+			$team = 1;
+			break;
+		case preg_match('(urfc)', $path) :
+			$team = 2;
+			break;
+		case preg_match('(royals)', $path) :
+			$team = 2;
+			break;
+		case preg_match('(monarchs)', $path) :
+			$team = 3;
+			break;
+		case preg_match('(academy)', $path) :
+			$team = 4;
+			break;
+		case preg_match('(real-salt-lake)', $path) :
+			$team = 1;
+			break;
+		default:
+			$team = NULL;
+	}
+
 	$date = date_create(h($items[$i]->pubDate), timezone_open("GMT"));
 	date_timezone_set($date, timezone_open('America/Denver'));
 
@@ -26,6 +52,7 @@ while ($i < 10) {
 	$posts['item'][$i]['link'] = h($items[$i]->link);
 	$posts['item'][$i]['pubDate'] = date_format($date, "Y-m-d H:i:s" );
 	$posts['item'][$i]['imageLink'] = "https://saltlake-mp7static.mlsdigital.net/" . h($image[0]);
+	$posts['item'][$i]['team'] = h($team);
 
 	$i++;
 }

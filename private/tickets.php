@@ -16,6 +16,7 @@ $sql .= "WHERE home='SLC' ";
 $sql .= "ORDER BY date ASC ";
 $monarchs_schedule = schedule::find_by_sql($sql);
 
+
  ?>
 <div class="tab-content" id=schedules>
 <!-- RSL Schedule -->
@@ -27,7 +28,8 @@ $monarchs_schedule = schedule::find_by_sql($sql);
         break;
       } elseif ($rsl->date < date('Y-m-d')) {
         continue;
-      }?>
+      }
+      ?>
       <div class="card-body row inline-table">
         <div class="col-3">
           <img class="sm-logo mr-1" src="<?php echo url_for('images/logos/MLS/' . h($rsl->home) . '.svg'); ?>" alt="RSL" /><br />
