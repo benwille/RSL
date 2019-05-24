@@ -3,6 +3,7 @@
 require_once('../../../private/initialize.php');
 require_login();
 //require_admin();
+$admin = Admin::find_by_username($session->username);
 
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/staff/posts/index.php'));
