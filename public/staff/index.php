@@ -1,86 +1,75 @@
 <?php require_once('../../private/initialize.php'); ?>
-<?php require_login(); ?>
-<?php
+<?php require_login();
   $admin = Admin::find_by_username($session->username);
-
-  $current_page = $_GET['page'] ?? 1;
-  $per_page = 20;
-  $total_count = Feed::count_all();
-
-  $pagination = new Pagination($current_page, $per_page, $total_count);
-
-// Find all posts;
-//use pagination
-
-$sql = "SELECT * FROM news_feed ";
-$sql .= "ORDER BY pubDate DESC ";
-// $sql .= "LIMIT 1 ";
-$sql .= "LIMIT {$per_page} ";
-$sql .= "OFFSET {$pagination->offset()}";
-$posts = Feed::find_by_sql($sql);
-
-// include 'process.php';
-
 ?>
 
-<?php $page_title = 'Posts'; ?>
+<?php $page_title = 'Staff Menu'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <div id="content">
-  <div class="tasks listing">
-    <h1>Posts</h1>
-    <?php //echo display_errors($post->errors); ?>
-    <span class="message"></span>
-  	<div class="table-responsive">
-      <table class="list table">
-      <tr>
-        <th>Title</th>
-        <th>Publish Date</th>
-        <th>Team</th>
-        <th>Promoted</th>
-        <th>&nbsp;</th>
-        <?php if ($admin->is_admin()) { ?>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-      <?php } ?>
-      </tr>
-      <?php foreach($posts as $post) { ?>
-        <tr>
-          <form action="<?php echo 'process.php?id=' . h(u($post->id)) ; ?>" method="post" id="postform">
-          <td><?php echo h($post->title); ?></td>
-          <td><?php echo h($post->pubDate()); ?></td>
-          <td class="align-middle">
-            <select name="post[team]">
-              <option value=""></option>
-            <?php foreach(Feed::TEAMS as $team_id => $team_name) { ?>
-              <option value="<?php echo $team_id; ?>" <?php if($post->team == $team_id) { echo 'selected'; } ?>><?php echo $team_name; ?></option>
+    <h2>Dashboard</h2>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Admins</h5>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text">Manage users and their permissions</p>
+            <a href="admins/index.php" class="card-link">All Admins</a>
+            <?php if ($admin->is_admin()) { ?>
+              <a href="admins/new.php" class="card-link">Add New Admin</a>
             <?php } ?>
-            </select>
-          </td>
-          <td class="text-center align-middle">
-            <input type="hidden" name="post[promoted]" value="0" />
-            <input type="checkbox" name="post[promoted]" value="1"<?php if($post->promoted()) { echo " checked"; } ?> />
-          </td>
-          <td class="align-middle"><a class="action" href="<?php echo $post->link; ?>" target="_blank">View</a></td>
-          <?php if ($admin->is_admin()) { ?>
-          <td class="align-middle"><a class="action" href="<?php echo url_for('/staff/posts/edit.php?id=' . h(u($post->id))); ?>">Edit</a></td>
-          <td class="align-middle"><a class="action" href="<?php echo url_for('/staff/posts/delete.php?id=' . h(u($post->id))); ?>">Delete</a></td>
-          <td class="align-middle"><input type="submit" value="Update" /></td>
-          <?php } ?>
-          </form>
-    	  </tr>
-      <?php } ?>
-  	</table></div>
+          </div>
+        </div>
+      </div><!--Admin Card-->
 
-<?php
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Posts</h5>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text">Manage posts information coming in from RSS feed.</p>
+            <a href="posts/index.php" class="card-link">All Posts</a>
+            <a href="posts/promoted.php" class="card-link">Promoted Posts</a>
+            <?php if ($admin->is_admin()) { ?>
+              <a href="posts/news_feed.php" class="card-link">Posts Feed</a>
+            <?php } ?>
+          </div>
+        </div>
+      </div><!--Posts Card-->
+    </div><!--Row-->
 
-$url = url_for('/staff/posts/index.php');
-echo $pagination->page_links($url);
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Schedule</h5>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text">Manage team schedules and get code to add to RSL.com</p>
+            <a href="schedule/index.php" class="card-link">All Schedules</a>
+            <a href="schedule/index.php#royals" class="card-link">Royals Schedule</a>
+            <a href="schedule/index.php#monarchs" class="card-link">Monarchs Schedule</a>
 
- ?>
+          </div>
+        </div>
+      </div><!--Schedule Card-->
 
-  </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Players</h5>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text">Example of player stats section.</p>
+            <a href="players/index.php" class="card-link">Players</a>
+            <a href="https://realsl.wpengine.com/players" target="_blank" class="card-link">Live Example</a>
+            <?php if ($admin->is_admin()) { ?>
+              <!--TODO-->
+              <!-- <a href="players/news.php" class="card-link">Add Player</a> -->
+            <?php } ?>
+          </div>
+        </div>
+      </div><!--Player Card-->
+    </div><!--Row-->
 
 </div>
 

@@ -23,7 +23,7 @@
 
     <script type="text/javascript">
       $(function() {
-        $("a#teamsDropdown").hover(teamdropdown,teamdropdown);
+        // $("a#teamsDropdown").hover(teamdropdown,teamdropdown);
 
         $("a.nav-item").each(function() {
           $(this).click(function() {
@@ -68,24 +68,12 @@
         <div class="navbar-nav ml-sm-auto">
           <?php if ($session->is_logged_in()) { ?>
             <div class="text-right mt-2 mr-1">User: <?php echo $session->username; ?></div>
-            <a class="nav-item nav-link" href="<?php echo url_for('/staff/index.php'); ?>">Home</a>
-            <a class="nav-item nav-link" href="<?php echo url_for('/staff/posts/index.php'); ?>">Posts</a>
-            <a class="nav-item nav-link" href="<?php echo url_for('/staff/posts/promoted.php'); ?>">Promoted</a>
-
-            <div class="dropdown">
-
-              <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" id="teamsDropdown" aria-haspopup="true" aria-expanded="false" href="#">Teams</a>
-                <div class="dropdown-menu" aria-labelledby="servicesDropdown">
-                  <a href="<?php echo url_for('/staff/posts/rsl.php'); ?>" class="dropdown-item">RSL</a>
-                  <a href="<?php echo url_for('/staff/posts/urfc.php'); ?>" class="dropdown-item">Utah Royals FC</a>
-                  <a href="<?php echo url_for('/staff/posts/monarchs.php'); ?>" class="dropdown-item">Real Monarchs</a>
-                  <a href="<?php echo url_for('/staff/posts/academy.php'); ?>" class="dropdown-item">RSL Academy</a>
-                  <a href="<?php echo url_for('/staff/posts/team.php'); ?>" class="dropdown-item">Other</a>
-                </div>
-
-            </div>
-
+            <a class="nav-item nav-link" href="<?php echo url_for('/index.php'); ?>" target="_blank">View Site</a>
+            <a class="nav-item nav-link" href="<?php echo url_for('/staff/index.php'); ?>">Dashboard</a>
             <a class="nav-item nav-link" href="<?php echo url_for('/staff/admins/index.php'); ?>">Admins</a>
+            <a class="nav-item nav-link" href="<?php echo url_for('/staff/posts/index.php'); ?>">Posts</a>
+            <a class="nav-item nav-link" href="<?php echo url_for('/staff/schedule/index.php'); ?>">Schedules</a>
+            <a class="nav-item nav-link" href="<?php echo url_for('/staff/players/index.php'); ?>">Players</a>
             <a class="nav-item nav-link" href="<?php echo url_for('/staff/logout.php'); ?>">Logout</a>
           <?php } ?>
         </div><!-- navbar -->
@@ -93,6 +81,7 @@
 
     </div><!-- container -->
   </nav><!-- nav -->
+
 
 
   <?php echo display_session_message(); ?>
