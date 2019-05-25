@@ -18,7 +18,7 @@ if(!isset($post)) {
 
 <dl>
   <dt>Publish Date</dt>
-  <dd><input type="text" name="post[pubDate]" value="<?php echo h($post->pubDate); ?>" /></dd>
+  <dd><input type="date" name="post[pubDate]" value="<?php echo h($post->pubDate); ?>" /></dd>
 </dl>
 
 <dl>

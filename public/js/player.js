@@ -40,6 +40,27 @@ jQuery (function($) {
     }); // each
   }); // click
 
+  $('.edit select').on('change', stats);
+
+  function stats(e) {
+    e.preventDefault();
+    console.log('Changed!');
+    var context = $(this).parent().parent().parent().parent();
+    var competition = $(this).val();
+    var player = $(this).parent().find('input').val()
+    $.post(
+      'stats_edit.php', {
+        competition: competition,
+        player_id: player }
+      ).done(function(data) {
+        $(context).html(data);
+        $('.edit select').on('change', stats);
+
+      }); // post ajax
+  }
+  // }); // change
+
+
   // if ($('.player-card').css('max-width') == '50%') {
   //   $(this).find('.player-stats').css('display', 'flex');
   // }

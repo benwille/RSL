@@ -1,70 +1,98 @@
 <?php require_once('../../../private/initialize.php'); ?>
-
+<?php require_login(); ?>
 <?php
-  $sql = "SELECT * FROM players ";
-  $sql .= "ORDER BY last_name ASC";
-  $players = Player::find_by_sql($sql);
- ?>
+  $admin = Admin::find_by_username($session->username);
+
+  $current_page = $_GET['page'] ?? 1;
+  $per_page = 20;
+  $total_count = Player::count_all();
+
+  $pagination = new Pagination($current_page, $per_page, $total_count);
+
+// Find all players;
+//use pagination
+
+$sql = "SELECT * FROM players ";
+$sql .= "ORDER BY last_name ASC";
+$players = Player::find_by_sql($sql);
+
+
+if(is_post_request()) {
+
+  // Create record using post parameters
+  $args = $_POST['player'];
+  // $id = $_POST['post']['id'];
+  $id = $_GET['id'];
+  $player = Player::find_by_id($id);
+  $player->merge_attributes($args);
+
+  $result = $player->save();
+  if($result === true) {
+    // $new_id = $task->id;
+    // echo 'The player was updated successfully.';
+    $session->message('The player was updated successfully.');
+    redirect_to(url_for('/staff/players/index.php'));
+
+
+  } else {
+    // show errors
+    // echo 'There was an error';
+    // redirect_to(url_for('/staff/players/index.php'));
+  }
+} else {
+  $player = new Player;
+}
+
+?>
 
 <?php $page_title = 'Players'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
-<script src="<?php echo url_for('/js/player.js');?>" async></script>
+<?php include(SHARED_PATH . '/staff_header.php');
+// include(SHARED_PATH . '/posts_menu.php'); ?>
+
 <div id="content">
-  <div class="admins listing">
-    <h1>Players</h1>
-
-    <div class="actions">
-      <!-- <a class="action" href="<?php echo url_for('/staff/players/new.php'); ?>">Add Player</a> -->
-    </div>
-    <div class="row">
-      <?php foreach($players as $player) {
-        $all = Stats::all_stats($player->id);
-        // var_dump($all); ?>
-        <div class="player-card col-lg-3 col-md-6 col-12">
-          <section class="card mb-5" id="">
-            <div class="card bg-dark text-white">
-              <img class="card-img rounded-0" src="<?php echo url_for('/images/players/' . $player->last_name . $player->name . '.jpg');?>" />
-              <div class="card-img-overlay">
-                <h2 class="card-title"><?php echo $player->fullName();?></h2>
-                <p class="card-subtitle"><?php echo $player->position;?></p>
-                <p class="card-text"><?php echo $player->years();?></p>
-              </div>
-            </div>
-            <div class="row player-stats">
-              <div class="col-6 border-right pr-0">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item border-0"><strong>All Games</strong></li>
-                  <li class="list-group-item border-0"><strong>GP: </strong><?php echo($all->played);?></li>
-                  <li class="list-group-item border-0"><strong>GS: </strong><?php echo($all->started);?></li>
-                  <li class="list-group-item border-0"><strong>Min: </strong><?php echo number_format($all->minutes);?></li>
-                </ul>
-              </div>
-              <div class="col-6 pl-0">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item border-0"><div class="d-flex"><img src="<?php echo url_for('/images/goals.svg');?>" width="20px"> <span class="ml-3"><?php echo($all->goals);?></span></div></li>
-                  <li class="list-group-item border-0"><div class="d-flex"><img src="<?php echo url_for('/images/assists.svg');?>" width="30px"><span class="ml-3"><?php echo($all->assists);?></span></div></li>
-                  <li class="list-group-item border-0"><div class="d-flex"><img src="<?php echo url_for('/images/yellowcard.jpg');?>" width="15px"><span class="ml-3"><?php echo($all->yellow);?></span></div></li>
-                  <li class="list-group-item border-0"><div class="d-flex"><img src="<?php echo url_for('/images/redcard.jpg');?>" width="15px"> <span class="ml-3"><?php echo($all->red);?></span></div></li>
-                </ul>
-              </div>
-            </div>
-            <div class="competition card-footer px-0 text-center">
-              <a class="btn btn-primary my-1 mls" href="" data-comp="1" data-player="<?php echo $player->id;?>">MLS</a>
-              <a class="btn btn-primary my-1 usoc" href="" data-comp="2" data-player="<?php echo $player->id;?>">USOC</a>
-              <a class="btn btn-primary my-1 concacaf" href="" data-comp="3" data-player="<?php echo $player->id;?>">CONCACAF</a>
-              <a class=" btn btn-primary my-1 all-comp" href="" data-comp="4" data-player="<?php echo $player->id;?>">All</a>
-            </div>
-            <div class="show-more card-footer px-0 text-center">
-              <a class="btn btn-primary my-1" href="">Show More</a>
-            </div>
-          </section><!--end card-->
-        </div>
-
-
+  <div class="tasks listing">
+    <h1>All Players</h1>
+    <?php //echo display_errors($player->errors); ?>
+    <span class="message"></span>
+  	<div class="table-responsive">
+      <table class="list table">
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Start Year</th>
+        <th>End Year</th>
+        <th>&nbsp;</th>
+        <?php if ($admin->is_admin()) { ?>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
       <?php } ?>
-    </div><!--row-->
+      </tr>
+      <?php foreach($players as $player) { ?>
+        <tr>
+          <!-- <form action="<?php echo 'index.php?id=' . h(u($player->id)) ; ?>" method="post" id="postform"> -->
+          <td><?php echo h($player->fullname()); ?></td>
+          <td><?php echo h($player->position); ?></td>
+          <td><?php echo h($player->startYear); ?></td>
+          <td><?php echo h($player->endYear); ?></td>
+          <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/show.php?id=' . h(u($player->id))); ?>">View</a></td>
+          <?php if ($admin->is_admin()) { ?>
+          <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/edit.php?id=' . h(u($player->id)) . '&edit=player'); ?>">Edit Player</a></td>
+          <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/edit.php?id=' . h(u($player->id)) . '&edit=stats'); ?>">Edit Stats</a></td>
+          <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/delete.php?id=' . h(u($player->id))); ?>">Delete</a></td>
+          <!-- <td class="align-middle"><input type="submit" value="Update" /></td> -->
+          <?php } ?>
+          </form>
+    	  </tr>
+      <?php } ?>
+  	</table></div>
 
+<?php
 
+$url = url_for('/staff/players/index.php');
+echo $pagination->page_links($url);
+
+ ?>
 
   </div>
 
