@@ -5,12 +5,12 @@
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-8 d-flex flex-column">
     <?php //echo "<pre>";
     //print_r($promoted);
     //echo "</pre>";
     if ($promoted) {?>
-    <section class="card mb-5" id="promoted">
+    <section class="card mb-5 order-0" id="promoted">
       <div class="card-header">
           <span>Highlighted</span>
       </div>
@@ -57,7 +57,7 @@
     </section>
     <?php } ?><!--Promoted Section-->
 
-    <section class="card mb-5" id="rsl">
+    <section class="card mb-5 order-<?php echo h($preference->rsl);?>" id="rsl">
       <div class="card-header">
           <div class="d-flex">
             <div class="flex-grow-1">
@@ -103,7 +103,7 @@
     </section><!--RSL Section-->
 
     <?php if ($urfc_posts) { ?>
-    <section class="card mb-5" id="urfc">
+    <section class="card mb-5 order-<?php echo h($preference->urfc);?>" id="urfc">
       <div class="card-header">
         <div class="d-flex">
           <div class="flex-grow-1">
@@ -149,7 +149,7 @@
   <?php } ?>
 
     <?php if ($monarchs_posts) { ?>
-    <section class="card mb-5" id="monarchs">
+    <section class="card mb-5 order-<?php echo h($preference->monarchs);?>" id="monarchs">
       <div class="card-header">
         <div class="d-flex">
           <div class="flex-grow-1">
@@ -194,7 +194,7 @@
   <?php } ?>
 
     <?php if ($academy_posts) { ?>
-    <section class="card mb-5" id="academy">
+    <section class="card mb-5 order-<?php echo h($preference->academy);?>" id="academy">
       <div class="card-header">
         <div class="d-flex">
           <div class="flex-grow-1">
@@ -238,7 +238,7 @@
     </section> <!--Academy Section-->
   <?php } ?>
 
-    <section class="card mb-5" id="latest">
+    <section class="card mb-5 order-5" id="latest">
       <div class="card-header">
         <div class="d-flex">
           <div class="flex-grow-1">
