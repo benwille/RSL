@@ -33,18 +33,22 @@ if(is_post_request()) {
       // show errors
     }
   }
-  elseif ($_POST['stats']) {
-    $args = $_POST['stats'];
+  elseif ($_POST['stat']) {
+    $args = $_POST['stat'];
     // var_dump($args);
     // die();
-    $i = $args['competition'] - 1;
-    $stats = $stats[$i] ?? new Stats;
+    if($_GET['stats_id'] > 0) {
+      $stats = Stats::find_by_id($_GET['stats_id']);
+    } else {
+      $stats = new Stats;
+    }
+
     $stats->merge_attributes($args);
     $result = $stats->save();
 
     if($result === true) {
       $session->message('The player stats was updated successfully.');
-      redirect_to(url_for('/staff/players/index.php'));
+      redirect_to(url_for('/staff/players/edit.php?id=' . h(u($id))));
     } else {
       // show errors
       $session->message('The player stats was not updated successfully.');
@@ -77,11 +81,26 @@ if(is_post_request()) {
     <h1>Edit <?php echo ucfirst($edit);?> Info</h1>
 
     <?php echo display_errors($player->errors); ?>
+    <div class="player-fields">
+      <form action="<?php echo url_for('/staff/players/edit.php?id=' . h(u($id))); ?>" method="post">
 
+        <div class="form-fields">
+          <?php include('player_form_fields.php'); ?>
+        </div>
+
+        <div id="operations">
+          <input type="submit" value="Edit <?php echo ucfirst($edit);?> Info" />
+        </div>
+      </form>
+    </div>
+    
+    <?php if ($id) { ?>
+    <div class="stats-fields">
       <div class="form-fields">
-        <?php include($form_fields); ?>
+        <?php include('stats_form_fields.php'); ?>
       </div>
-
+    </div>
+    <?php } ?>
   </div>
 
 </div>

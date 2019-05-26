@@ -7,8 +7,6 @@ if(!isset($player)) {
 }
 ?>
 
-<form action="<?php echo url_for('/staff/players/edit.php?id=' . h(u($id))); ?>" method="post">
-
 <dl>
   <dt>First Name</dt>
   <dd><input type="text" name="player[name]" value="<?php echo h($player->name); ?>" /></dd>
@@ -48,7 +46,3 @@ if(!isset($player)) {
   <?php } ?>
   </select></dd>
 </dl> -->
-<div id="operations">
-  <input type="submit" value="Edit <?php echo ucfirst($edit);?> Info" />
-</div>
-</form>

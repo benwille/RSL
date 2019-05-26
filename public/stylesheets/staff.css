@@ -144,6 +144,10 @@ dd {
   margin: 1em 0 1em 75px;
 }
 
+.stats-fields input[type=number] {
+  width: 100px;
+}
+
 /* Errors */
 
 .errors {

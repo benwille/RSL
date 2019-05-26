@@ -54,6 +54,9 @@ if(is_post_request()) {
     <h1>All Players</h1>
     <?php //echo display_errors($player->errors); ?>
     <span class="message"></span>
+    <div class="row">
+      <a href="<?php echo url_for("staff/players/new.php"); ?>">New Player &raquo;</a>
+    </div>
   	<div class="table-responsive">
       <table class="list table">
       <tr>
@@ -63,7 +66,6 @@ if(is_post_request()) {
         <th>End Year</th>
         <th>&nbsp;</th>
         <?php if ($admin->is_admin()) { ?>
-        <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
       <?php } ?>
@@ -77,8 +79,7 @@ if(is_post_request()) {
           <td><?php echo h($player->endYear); ?></td>
           <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/show.php?id=' . h(u($player->id))); ?>">View</a></td>
           <?php if ($admin->is_admin()) { ?>
-          <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/edit.php?id=' . h(u($player->id)) . '&edit=player'); ?>">Edit Player</a></td>
-          <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/edit.php?id=' . h(u($player->id)) . '&edit=stats'); ?>">Edit Stats</a></td>
+          <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/edit.php?id=' . h(u($player->id))); ?>">Edit</a></td>
           <td class="text-center"><a class="action" href="<?php echo url_for('/staff/players/delete.php?id=' . h(u($player->id))); ?>">Delete</a></td>
           <!-- <td class="align-middle"><input type="submit" value="Update" /></td> -->
           <?php } ?>
